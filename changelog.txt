@@ -1,0 +1,5 @@
+Plugin Name: International 5o5 PL Rankomat
+Author: Marcin Pietrzak ( iworks.pl )
+
+== Changelog ==
+
