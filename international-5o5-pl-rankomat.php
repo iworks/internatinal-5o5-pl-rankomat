@@ -3,12 +3,13 @@
 Plugin Name: International 5o5 PL Rankomat
 Text Domain: international-5o5-pl-rankomat
 Plugin URI: http://iworks.pl/international-5o5-pl-rankomat/
-Description:
+Description:Adds the ability to display competitor rankings for the Polish Fleet of the International 5O5 class.
 Version: PLUGIN_VERSION
 Author: Marcin Pietrzak
 Author URI: http://iworks.pl/
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
+Requires Plugins: fleet
 
 Copyright 2023-PLUGIN_TILL_YEAR Marcin Pietrzak (marcin@iworks.pl)
 
@@ -35,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * static options
  */
 define( 'IWORKS_INTERNATIONAL_5O5_PL_RANKOMAT_VERSION', 'PLUGIN_VERSION' );
-define( 'IWORKS_INTERNATIONAL_5O5_PL_RANKOMAT_PREFIX', 'iworks_international-5o5-pl-rankomat_' );
+define( 'IWORKS_INTERNATIONAL_5O5_PL_RANKOMAT_PREFIX', 'ii5o5pr_' );
 $base   = dirname( __FILE__ );
 $vendor = $base . '/includes';
 
@@ -46,55 +47,8 @@ if ( ! class_exists( 'iworks_international_5o5_pl_rankomat' ) ) {
 	require_once $vendor . '/iworks/class-international-5o5-pl-rankomat.php';
 }
 /**
- * configuration
- */
-require_once $base . '/etc/options.php';
-/**
- * require: IworksOptions Class
- */
-if ( ! class_exists( 'iworks_options' ) ) {
-	require_once $vendor . '/iworks/options/options.php';
-}
-
-/**
  * i18n
  */
 load_plugin_textdomain( 'international-5o5-pl-rankomat', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
 
-/**
- * load options
- */
-global $iworks_international_5o5_pl_rankomat_options;
-$iworks_international_5o5_pl_rankomat_options = new iworks_options();
-$iworks_international_5o5_pl_rankomat_options->set_option_function_name( 'iworks_international_5o5_pl_rankomat_options' );
-$iworks_international_5o5_pl_rankomat_options->set_option_prefix( IWORKS_INTERNATIONAL_5O5_PL_RANKOMAT_PREFIX );
-
-function iworks_international_5o5_pl_rankomat_get_options() {
-	global $iworks_international_5o5_pl_rankomat_options;
-	return $iworks_international_5o5_pl_rankomat_options;
-}
-
-function iworks_international_5o5_pl_rankomat_options_init() {
-	global $iworks_international_5o5_pl_rankomat_options;
-	$iworks_international_5o5_pl_rankomat_options->options_init();
-}
-
-function iworks_international_5o5_pl_rankomat_activate() {
-	$iworks_international_5o5_pl_rankomat_options = new iworks_options();
-	$iworks_international_5o5_pl_rankomat_options->set_option_function_name( 'iworks_international_5o5_pl_rankomat_options' );
-	$iworks_international_5o5_pl_rankomat_options->set_option_prefix( IWORKS_INTERNATIONAL_5O5_PL_RANKOMAT_PREFIX );
-	$iworks_international_5o5_pl_rankomat_options->activate();
-}
-
-function iworks_international_5o5_pl_rankomat_deactivate() {
-	global $iworks_international_5o5_pl_rankomat_options;
-	$iworks_international_5o5_pl_rankomat_options->deactivate();
-}
-
-$iworks_international_5o5_pl_rankomat = new iworks_international_5o5_pl_rankomat();
-
-/**
- * install & uninstall
- */
-register_activation_hook( __FILE__, 'iworks_international_5o5_pl_rankomat_activate' );
-register_deactivation_hook( __FILE__, 'iworks_international_5o5_pl_rankomat_deactivate' );
+	new iworks_international_5o5_pl_rankomat();
